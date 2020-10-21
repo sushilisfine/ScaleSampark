@@ -1,0 +1,14 @@
+spring:
+      jpa:
+          hibernate:
+                   ddl-auto: update
+          show-sql: false
+          properties:
+                    hibernate:
+                             format_sql: false
+                             dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+      datasource:
+               url: jdbc:mysql://127.0.0.1:3306/chatbox?createDatabaseIfNotExist=true&autoReconnect=true
+               username: root
+               password: root
+               initialization-mode: always
