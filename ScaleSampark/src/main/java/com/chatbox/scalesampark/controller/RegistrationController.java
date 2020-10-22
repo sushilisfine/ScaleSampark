@@ -30,7 +30,7 @@ public class RegistrationController {
 		this.registerationService = registerationService;
 	}
 
-	@PostMapping(value = "/v1/register")
+	@PostMapping(value = "/v1/participants")
 	public ResponseEntity<Object> save(@Valid @RequestBody RegistrationRequestDTO userDetails) {
 
 		User registeredUser = registerationService.register(userDetails);
@@ -46,7 +46,7 @@ public class RegistrationController {
 		}
 	}
 
-	@DeleteMapping(value = "/v1/deregister/{uuid}")
+	@DeleteMapping(value = "/v1/participants/{uuid}")
 	public ResponseEntity<Object> delete(@PathVariable Integer uuid) {
 
 		boolean removed = registerationService.removeParticipant(uuid);
@@ -60,10 +60,10 @@ public class RegistrationController {
 		return ResponseEntity.accepted().body(response);
 	}
 
-	@GetMapping(value = "/v1/participants/{uuid}", produces = "application/json")
-	public ResponseEntity<Object> get(@PathVariable Integer uuid) {
+	@GetMapping(value = "/v1/participants", produces = "application/json")
+	public ResponseEntity<Object> getAll() {
 
-		ParticipantsResponseDTO participantsResponse = registerationService.getAllParticipants(uuid);
+		ParticipantsResponseDTO participantsResponse = registerationService.getAllParticipants();
 
 		Map<Object, Object> response = new HashMap<>();
 		if (participantsResponse != null)
