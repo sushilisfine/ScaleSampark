@@ -8,7 +8,7 @@ public interface RegistrationService {
 
 	public User register(RegistrationRequestDTO registerationDTO);
 
-	public ParticipantsResponseDTO getAllParticipants(Integer uuid);
+	public ParticipantsResponseDTO getAllParticipants();
 
 	public boolean removeParticipant(Integer uuid);
 

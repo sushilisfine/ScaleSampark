@@ -36,18 +36,11 @@ public class RegistrationServiceImpl implements RegistrationService {
 	}
 
 	@Override
-	public ParticipantsResponseDTO getAllParticipants(Integer uuid) {
+	public ParticipantsResponseDTO getAllParticipants() {
 
-		boolean exists = userRepository.existsById(uuid);
-		if (!exists)
-			return null;
 		ParticipantsResponseDTO participants = new ParticipantsResponseDTO();
 		List<User> users = userRepository.findAll();
-
-		User requester = userHelper.updateLastSeen(uuid);
-
-		if (requester != null)
-			participants.setParticipants(users);
+		participants.setParticipants(users);
 
 		return participants;
 	}
