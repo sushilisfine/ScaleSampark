@@ -41,7 +41,7 @@ public class User implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonProperty(value = "participant uuid")
+	@JsonProperty(value = "participant_uuid")
 	private Integer id;
 
 	private String UUID;
@@ -51,7 +51,7 @@ public class User implements Serializable {
 
 	private String nickname;
 
-	@JsonProperty(value = "last seen")
+	@JsonProperty(value = "last_seen")
 	private LocalDateTime lastSeen;
 
 	@JsonProperty(access = Access.WRITE_ONLY)

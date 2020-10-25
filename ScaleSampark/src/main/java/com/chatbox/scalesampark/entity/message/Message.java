@@ -36,7 +36,7 @@ public class Message implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@JsonProperty(value = "message uuid")
+	@JsonProperty(value = "message_uuid")
 	private String UUID;
 
 	private LocalDateTime createdAt;

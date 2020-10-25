@@ -32,7 +32,7 @@ Sample Request:
 }
 Sample Response: 
      {
-      "participant uuid": "52f34c29-a90b-4999-947a-6f54031030d7"
+      "participant_uuid": "52f34c29-a90b-4999-947a-6f54031030d7"
      }
 
 
@@ -42,8 +42,8 @@ Method Type: GET
 Sample Response: 
 {
             "nickname": "sushil",
-            "participant uuid": "52f34c29-a90b-4999-947a-6f54031030d7",
-            "last seen": "2020-10-21T10:04:09"
+            "participant_uuid": "52f34c29-a90b-4999-947a-6f54031030d7",
+            "last_seen": "2020-10-21T10:04:09"
 }
 
 3.	List all participants:
@@ -52,8 +52,8 @@ Method Type: GET
 Sample Response: 
 {"participants": [{
             "nickname": "sushil",
-            "participant uuid": "52f34c29-a90b-4999-947a-6f54031030d7",
-            "last seen": "2020-10-21T10:04:09"
+            "participant_uuid": "52f34c29-a90b-4999-947a-6f54031030d7",
+            "last_seen": "2020-10-21T10:04:09"
 }]}
 
 4.	Incoming message request:
@@ -61,9 +61,9 @@ Method URL: http://localhost:9898/api/v1/messages
 Method Type: POST
 Sample Request: 
 {
-"message type":"text",
+"message_type":"text",
 "message":"Custom Message",
-"participant uuid":"52f34c29-a90b-4999-947a-6f54031030d7"
+"participant_uuid":"52f34c29-a90b-4999-947a-6f54031030d7"
 }
 
 Sample Response:
@@ -76,10 +76,10 @@ Sample Response:
 {
 "pendingMessage": [{
             "message": "Custom Message",
- "message uuid": "52f34c29-a90b-4999-947a-6f54031030d7",
- "participant uuid": "52f34c29-a90b-4999-947a-6f54031030d7"
+ "message_uuid": "52f34c29-a90b-4999-947a-6f54031030d7",
+ "participant_uuid": "52f34c29-a90b-4999-947a-6f54031030d7"
 ,
-            "message type": 21
+            "message_type": 21
            }]}
 6.	Deregister User:
 Method URL: http://localhost:9898/api/v1/participants/52f34c29-a90b-4999-947a-6f54031030d7
