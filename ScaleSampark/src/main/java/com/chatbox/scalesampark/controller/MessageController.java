@@ -7,10 +7,10 @@ import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chatbox.scalesampark.dto.request.NewMessageRequestDTO;
@@ -27,7 +27,7 @@ public class MessageController {
 		this.messagingService = messagingService;
 	}
 
-	@PostMapping(value = "/v1/message")
+	@PostMapping(value = "/v1/messages")
 	public ResponseEntity<Map<Object, Object>> create(@Valid @RequestBody NewMessageRequestDTO message) {
 
 		boolean saved = messagingService.sendMessage(message);
@@ -44,10 +44,10 @@ public class MessageController {
 
 	}
 
-	@GetMapping(value = "/v1/message/{uuid}", produces = "application/json")
-	public ResponseEntity<Object> get(@PathVariable Integer uuid) {
+	@GetMapping(value = "/v1/messages", params = "UUID", produces = "application/json")
+	public ResponseEntity<Object> get(@RequestParam("UUID") String UUID) {
 
-		PendingMessageResponseDTO pendingMessages = messagingService.readPendingMessages(uuid);
+		PendingMessageResponseDTO pendingMessages = messagingService.readPendingMessages(UUID);
 		Map<Object, Object> response = new HashMap<>();
 
 		if (pendingMessages != null) {

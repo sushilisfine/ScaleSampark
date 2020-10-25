@@ -36,8 +36,8 @@ public class MessageType implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	private Integer messageType;
-	
+	private String messageType;
+
 	@JsonManagedReference
 	@OneToMany(mappedBy = "messageType", targetEntity = Message.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Message> messageList = new ArrayList<>();

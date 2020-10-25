@@ -33,7 +33,8 @@ import lombok.Builder;
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
-@Table(name = "user", indexes = { @Index(name = "user_idx", columnList = "email", unique = true) })
+@Table(name = "user", indexes = { @Index(name = "UUID_idx", columnList = "UUID", unique = true),
+		@Index(name = "email_idx", columnList = "email", unique = true) })
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 4193921919526248751L;
@@ -41,7 +42,9 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@JsonProperty(value = "participant uuid")
-	private Integer uuid;
+	private Integer id;
+
+	private String UUID;
 
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private String email;

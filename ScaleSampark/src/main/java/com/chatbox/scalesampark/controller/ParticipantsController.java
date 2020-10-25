@@ -38,7 +38,7 @@ public class ParticipantsController {
 		Map<Object, Object> response = new HashMap<>();
 
 		if (registeredUser != null) {
-			response.put("participant uuid", registeredUser.getUuid());
+			response.put("participant uuid", registeredUser.getUUID());
 			return ResponseEntity.accepted().body(response);
 		} else {
 			response.put("error", "Error registering user");
@@ -46,18 +46,33 @@ public class ParticipantsController {
 		}
 	}
 
-	@DeleteMapping(value = "/v1/participants/{uuid}")
-	public ResponseEntity<Object> delete(@PathVariable Integer uuid) {
+	@DeleteMapping(value = "/v1/participants/{UUID}")
+	public ResponseEntity<Object> delete(@PathVariable String UUID) {
 
-		boolean removed = registerationService.removeParticipant(uuid);
+		boolean removed = registerationService.removeParticipant(UUID);
 
 		Map<Object, Object> response = new HashMap<>();
 		if (removed)
-			response.put("Successfully removed user ", uuid);
+			response.put("Successfully removed user ", UUID);
 		else
-			response.put("No user present with uuid", uuid);
+			response.put("No user present with uuid", UUID);
 
 		return ResponseEntity.accepted().body(response);
+	}
+
+	@GetMapping(value = "/v1/participants/{UUID}", produces = "application/json")
+	public ResponseEntity<Object> get(@PathVariable String UUID) {
+
+		User user = registerationService.getParticipant(UUID);
+
+		Map<Object, Object> response = new HashMap<>();
+		if (user != null)
+			return ResponseEntity.accepted().body(user);
+		else {
+			response.put("error", "No user with given UUID found");
+			return ResponseEntity.badRequest().body(response);
+		}
+
 	}
 
 	@GetMapping(value = "/v1/participants", produces = "application/json")

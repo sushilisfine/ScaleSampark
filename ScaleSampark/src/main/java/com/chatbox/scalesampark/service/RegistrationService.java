@@ -10,6 +10,8 @@ public interface RegistrationService {
 
 	public ParticipantsResponseDTO getAllParticipants();
 
-	public boolean removeParticipant(Integer uuid);
+	public boolean removeParticipant(String UUID);
+
+	public User getParticipant(String UUID);
 
 }

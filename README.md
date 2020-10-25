@@ -23,7 +23,7 @@ Design decisions?
 Requests/Responses
 1.	Participant Registration: 
 
-Method URL: http://localhost:9898/api/v1/register
+Method URL: http://localhost:9898/api/v1/participants
 Method Type: POST
 Sample Request: 
 {
@@ -32,50 +32,57 @@ Sample Request:
 }
 Sample Response: 
      {
-      "participant uuid": 7
+      "participant uuid": "52f34c29-a90b-4999-947a-6f54031030d7"
      }
 
 
-2.	List all participants:
-Method URL: http://localhost:9898/api/v1/participants/1
+2.	List a participant:
+Method URL: http://localhost:9898/api/v1/participants/52f34c29-a90b-4999-947a-6f54031030d7
 Method Type: GET
 Sample Response: 
 {
-    "participants": [{
             "nickname": "sushil",
-            "participant uuid": 1,
+            "participant uuid": "52f34c29-a90b-4999-947a-6f54031030d7",
+            "last seen": "2020-10-21T10:04:09"
+}
+
+3.	List all participants:
+Method URL: http://localhost:9898/api/v1/participants
+Method Type: GET
+Sample Response: 
+{"participants": [{
+            "nickname": "sushil",
+            "participant uuid": "52f34c29-a90b-4999-947a-6f54031030d7",
             "last seen": "2020-10-21T10:04:09"
 }]}
 
-3.	Incoming message request:
-Method URL: http://localhost:9898/api/v1/message
+4.	Incoming message request:
+Method URL: http://localhost:9898/api/v1/messages
 Method Type: POST
 Sample Request: 
 {
-"message type":21,
+"message type":"text",
 "message":"Custom Message",
-"participant uuid":1
+"participant uuid":"52f34c29-a90b-4999-947a-6f54031030d7"
 }
 
 Sample Response:
-{
-    "Success": "Message sent successfully"
-}
+{"Success": "Message sent successfully"}
 
-4.	Poll Message:
-Method URL: http://localhost:9898/api/v1/message/1
+5.	Poll Message:
+Method URL: http://localhost:9898/api/v1/messages/?UUID=52f34c29-a90b-4999-947a-6f54031030d7
 Method Type: GET
 Sample Response:
 {
- "pendingMessage": [{
+"pendingMessage": [{
             "message": "Custom Message",
-            "message uuid": 1,
-            "participant uuid": 1,
+ "message uuid": "52f34c29-a90b-4999-947a-6f54031030d7",
+ "participant uuid": "52f34c29-a90b-4999-947a-6f54031030d7"
+,
             "message type": 21
            }]}
-
-5.	Deregister User:
-Method URL: http://localhost:9898/api/v1/deregister/1
+6.	Deregister User:
+Method URL: http://localhost:9898/api/v1/participants/52f34c29-a90b-4999-947a-6f54031030d7
 Method Type: DELETE
 Sample Response:
 {

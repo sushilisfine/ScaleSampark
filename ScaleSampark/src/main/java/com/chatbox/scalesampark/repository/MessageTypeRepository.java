@@ -8,6 +8,6 @@ import com.chatbox.scalesampark.entity.message.MessageType;
 @Repository
 public interface MessageTypeRepository extends JpaRepository<MessageType, Integer> {
 
-	MessageType findByMessageType(Integer messageType);
+	MessageType findByMessageType(String messageType);
 
 }

@@ -2,6 +2,7 @@ package com.chatbox.scalesampark.service.impl;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -27,8 +28,10 @@ public class RegistrationServiceImpl implements RegistrationService {
 	@Override
 	public User register(RegistrationRequestDTO registerationDTO) {
 
+		UUID uuid = UUID.randomUUID();
+
 		User user = User.builder().email(registerationDTO.getEmail()).lastSeen(LocalDateTime.now())
-				.nickname(registerationDTO.getNickname()).build();
+				.nickname(registerationDTO.getNickname()).UUID(uuid.toString()).build();
 
 		User registeredUser = userRepository.save(user);
 
@@ -46,13 +49,25 @@ public class RegistrationServiceImpl implements RegistrationService {
 	}
 
 	@Override
-	public boolean removeParticipant(Integer uuid) {
+	public boolean removeParticipant(String UUID) {
 
-		boolean exists = userRepository.existsById(uuid);
+		boolean exists = userRepository.existsByUUID(UUID);
 		if (exists) {
-			userHelper.removeUser(uuid);
+			userHelper.removeUser(UUID);
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public User getParticipant(String UUID) {
+		boolean exists = userRepository.existsByUUID(UUID);
+		if (!exists) {
+			// throw exception
+			return null;
+		}
+		// User user = userHelper.updateLastSeen(UUID);
+		User user = userHelper.getUserByUUID(UUID);
+		return user;
 	}
 }

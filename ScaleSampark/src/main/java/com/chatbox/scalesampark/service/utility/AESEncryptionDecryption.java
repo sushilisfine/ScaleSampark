@@ -6,13 +6,14 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Base64;
 
+import javax.annotation.PostConstruct;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 
-@Component
+@Configuration
 public class AESEncryptionDecryption {
 
 	@Value("${secret.key}")
@@ -22,16 +23,24 @@ public class AESEncryptionDecryption {
 	private static byte[] key;
 	private static final String ALGORITHM = "AES";
 
+	@PostConstruct
+	private void init() {
+		prepareSecreteKey(secret);
+	}
+
 	public void prepareSecreteKey(String myKey) {
-		MessageDigest sha = null;
-		try {
-			key = myKey.getBytes(StandardCharsets.UTF_8);
-			sha = MessageDigest.getInstance("SHA-1");
-			key = sha.digest(key);
-			key = Arrays.copyOf(key, 16);
-			secretKey = new SecretKeySpec(key, ALGORITHM);
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
+
+		if (secretKey == null) {
+			MessageDigest sha = null;
+			try {
+				key = myKey.getBytes(StandardCharsets.UTF_8);
+				sha = MessageDigest.getInstance("SHA-1");
+				key = sha.digest(key);
+				key = Arrays.copyOf(key, 16);
+				secretKey = new SecretKeySpec(key, ALGORITHM);
+			} catch (NoSuchAlgorithmException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

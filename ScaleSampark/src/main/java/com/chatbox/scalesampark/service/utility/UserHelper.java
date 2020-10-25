@@ -23,8 +23,8 @@ public class UserHelper {
 		this.messageHelper = messageHelper;
 	}
 
-	public User updateLastSeen(Integer UUID) {
-		User user = userRepository.findById(UUID).orElse(null);
+	public User updateLastSeen(String UUID) {
+		User user = userRepository.findByUUID(UUID).orElse(null);
 		if (user != null) {
 			user.setLastSeen(LocalDateTime.now());
 			user = userRepository.save(user);
@@ -32,17 +32,17 @@ public class UserHelper {
 		return user;
 	}
 
-	public User getUserByUUID(Integer UUID) {
-		User user = userRepository.findById(UUID).orElse(null);
+	public User getUserByUUID(String UUID) {
+		User user = userRepository.findByUUID(UUID).orElse(null);
 		return user;
 	}
 
-	public void removeUser(Integer uuid) {
+	public void removeUser(String UUID) {
 
-		User user = userRepository.findById(uuid).orElse(null);
+		User user = userRepository.findByUUID(UUID).orElse(null);
 		if (user != null) {
 			messageHelper.removeMessagesForUser(user);
-			userRepository.deleteById(uuid);
+			userRepository.deleteById(user.getId());
 		}
 	}
 }

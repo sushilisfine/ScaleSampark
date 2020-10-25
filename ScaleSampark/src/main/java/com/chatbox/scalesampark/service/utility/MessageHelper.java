@@ -30,15 +30,7 @@ public class MessageHelper {
 		this.messageTypeRepository = messageTypeRepository;
 	}
 
-	public void setMessageAsRead(List<Message> pendingMessages) {
-
-		pendingMessages.forEach(message -> {
-			message.setPending(false);
-			messageRepository.save(message);
-		});
-	}
-
-	public MessageType createMessageTypeIfNotExist(Integer messageType) {
+	public MessageType createMessageTypeIfNotExist(String messageType) {
 
 		MessageType messageTypeDb = messageTypeRepository.findByMessageType(messageType);
 		if (messageTypeDb == null) {
@@ -54,8 +46,8 @@ public class MessageHelper {
 		List<MessageDTO> messageDTO = pendingMessages.stream().map(message -> {
 
 			return MessageDTO.builder().message(encDec.decrypt(message.getMessage()))
-					.messageType(message.getMessageType().getMessageType()).participantUUID(message.getUser().getUuid())
-					.uuid(message.getUuid()).build();
+					.messageType(message.getMessageType().getMessageType()).participantUUID(message.getUser().getUUID())
+					.UUID(message.getUUID()).build();
 
 		}).collect(Collectors.toList());
 

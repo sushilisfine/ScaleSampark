@@ -7,5 +7,5 @@ public interface MessagingService {
 
 	boolean sendMessage(NewMessageRequestDTO message);
 
-	PendingMessageResponseDTO readPendingMessages(Integer uuid);
+	PendingMessageResponseDTO readPendingMessages(String uuid);
 }

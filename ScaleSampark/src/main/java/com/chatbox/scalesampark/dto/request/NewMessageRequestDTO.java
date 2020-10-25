@@ -19,12 +19,12 @@ public class NewMessageRequestDTO implements Serializable {
 	private static final long serialVersionUID = 4193921919525635351L;
 
 	@NotNull(message = "Please provide participants UUID")
-	@JsonProperty(value = "participant uuid")
-	private Integer participantUUID;
+	@JsonProperty(value = "participant_uuid")
+	private String participantUUID;
 
 	@NotNull(message = "Please provide message type")
-	@JsonProperty(value = "message type")
-	private Integer messageType;
+	@JsonProperty(value = "message_type")
+	private String messageType;
 
 	@NotNull(message = "Please provide message")
 	@NotBlank(message = "Please provide message")

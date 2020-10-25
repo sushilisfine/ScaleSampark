@@ -1,6 +1,9 @@
 package com.chatbox.scalesampark.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -34,7 +37,7 @@ public class MessagingServiceImpl implements MessagingService {
 	public boolean sendMessage(NewMessageRequestDTO messageDTO) {
 
 		User user = userHelper.getUserByUUID(messageDTO.getParticipantUUID());
-
+		UUID uuid = UUID.randomUUID();
 		if (user == null) {
 			// throw custom exception
 			return false;
@@ -43,32 +46,32 @@ public class MessagingServiceImpl implements MessagingService {
 
 		MessageType messageType = messageHelper.createMessageTypeIfNotExist(messageDTO.getMessageType());
 
-		String text = messageDTO.getMessage();
+		String encryptedText = messageHelper.encryptMessage(messageDTO.getMessage());
 
-		String encryptedText = messageHelper.encryptMessage(text);
+		Message message = Message.builder().messageType(messageType).message(encryptedText).user(user)
+				.UUID(uuid.toString()).createdAt(LocalDateTime.now()).build();
 
-		userHelper.updateLastSeen(user.getUuid());
-		Message message = Message.builder().messageType(messageType).message(encryptedText).pending(true).user(user)
-				.build();
+		userHelper.updateLastSeen(user.getUUID());
 		messageRepository.save(message);
 		return true;
 	}
 
 	@Override
-	public PendingMessageResponseDTO readPendingMessages(Integer uuid) {
+	public PendingMessageResponseDTO readPendingMessages(String UUID) {
 
-		User user = userHelper.getUserByUUID(uuid);
+		User user = userHelper.getUserByUUID(UUID);
 
 		if (user == null) {
 			// throw custom exception
 			return null;
 		}
 
-		userHelper.updateLastSeen(uuid);
+		List<Message> pendingMessages = messageRepository.findAll();
 
-		List<Message> pendingMessages = messageRepository.findAllByPending(true);
+		pendingMessages = pendingMessages.stream().filter(message -> message.getCreatedAt().isAfter(user.getLastSeen()))
+				.collect(Collectors.toList());
 
-		messageHelper.setMessageAsRead(pendingMessages);
+		userHelper.updateLastSeen(UUID);
 
 		List<MessageDTO> messageDTO = messageHelper.decryptMessages(pendingMessages);
 
