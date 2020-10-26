@@ -53,9 +53,9 @@ public class ParticipantsController {
 
 		Map<Object, Object> response = new HashMap<>();
 		if (removed)
-			response.put("Successfully removed user ", UUID);
+			response.put("Success", "Successfully removed user : " + UUID);
 		else
-			response.put("No user present with uuid", UUID);
+			response.put("Error", "No user present with uuid : " + UUID);
 
 		return ResponseEntity.accepted().body(response);
 	}
