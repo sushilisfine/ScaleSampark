@@ -66,11 +66,7 @@ public class MessagingServiceImpl implements MessagingService {
 			return null;
 		}
 
-		List<Message> pendingMessages = messageRepository.findAll();
-
-		pendingMessages = pendingMessages.stream().filter(message -> message.getCreatedAt().isAfter(user.getLastSeen()))
-				.collect(Collectors.toList());
-
+		List<Message> pendingMessages = messageRepository.findByCreatedAtAfter(user.getLastSeen());
 		userHelper.updateLastSeen(UUID);
 
 		List<MessageDTO> messageDTO = messageHelper.decryptMessages(pendingMessages);
