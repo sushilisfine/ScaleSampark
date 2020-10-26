@@ -38,7 +38,7 @@ public class ParticipantsController {
 		Map<Object, Object> response = new HashMap<>();
 
 		if (registeredUser != null) {
-			response.put("participant uuid", registeredUser.getUUID());
+			response.put("participant_uuid", registeredUser.getUUID());
 			return ResponseEntity.accepted().body(response);
 		} else {
 			response.put("error", "Error registering user");
