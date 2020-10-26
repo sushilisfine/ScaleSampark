@@ -41,7 +41,7 @@ public class ParticipantsController {
 			response.put("participant_uuid", registeredUser.getUUID());
 			return ResponseEntity.accepted().body(response);
 		} else {
-			response.put("error", "Error registering user");
+			response.put("Error", "Error registering user");
 			return ResponseEntity.badRequest().body(response);
 		}
 	}
@@ -69,7 +69,7 @@ public class ParticipantsController {
 		if (user != null)
 			return ResponseEntity.accepted().body(user);
 		else {
-			response.put("error", "No user with given UUID found");
+			response.put("Error", "No user with given UUID found");
 			return ResponseEntity.badRequest().body(response);
 		}
 
@@ -84,7 +84,7 @@ public class ParticipantsController {
 		if (participantsResponse != null)
 			return ResponseEntity.accepted().body(participantsResponse);
 		else {
-			response.put("error", "No user with given UUID found");
+			response.put("Error", "No user with given UUID found");
 			return ResponseEntity.badRequest().body(response);
 		}
 

@@ -38,7 +38,7 @@ public class MessageController {
 			response.put("Success", "Message sent successfully");
 			return ResponseEntity.accepted().body(response);
 		} else {
-			response.put("error", "User UUID dosen't exist");
+			response.put("Error", "User UUID dosen't exist");
 			return ResponseEntity.badRequest().body(response);
 		}
 
